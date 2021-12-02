@@ -9,7 +9,6 @@
     "build": "tsc",
     "pretest": "npm run build",
     "test": "jest build",
-    "prestart": "npm run test",
     "start": "echo \"INICIANDO PROGRAMA\" && node build/index.js"
   },
   "keywords": [],
