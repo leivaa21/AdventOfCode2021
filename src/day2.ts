@@ -20,7 +20,7 @@ export class PartI {
 
   readOrders(path: string) {
     const buffer = fs.readFileSync(join(__dirname, path));
-    const arrayString = buffer.toString().replace(/\r\n/g, '\n').split('\n');
+    const arrayString = buffer.toString().split('\n');
     arrayString.forEach((cmd) => {
       this.cmds.push(this.formatCmd(cmd));
     });

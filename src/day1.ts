@@ -8,7 +8,7 @@ export function readAllInput(path: string): Array<number> {
   const response: Array<number> = new Array<number>();
 
   const buffer = fs.readFileSync(join(__dirname, path));
-  const arrayString = buffer.toString().replace(/\r\n/g, '\n').split('\n');
+  const arrayString = buffer.toString().split('\n');
   for (const i of arrayString) response.push(parseInt(i));
   return response;
 }
