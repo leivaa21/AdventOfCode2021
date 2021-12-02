@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { join } from 'path';
 
-export class Day2 {
+export class PartI {
   public depth: number;
   public horizontalPos: number;
   public cmds: Array<{ order: string; value: number }>;
@@ -40,12 +40,39 @@ export class Day2 {
   }
 }
 
+export class PartII extends PartI {
+  public aim: number;
+
+  constructor() {
+    super();
+    this.aim = 0;
+  }
+
+  handleCommand(cmd: { order: string; value: number }) {
+    if (cmd.order == 'down') {
+      this.aim += cmd.value;
+    } else if (cmd.order == 'up') {
+      this.aim -= cmd.value;
+    } else if (cmd.order == 'forward') {
+      this.horizontalPos += cmd.value;
+      this.depth += this.aim * cmd.value;
+    }
+  }
+}
+
 export function main() {
-  const main: Day2 = new Day2();
+  const main: PartI = new PartI();
   main.compute('../inputs/day2Input');
   console.log(
-    `Depth = ${main.depth}\nHorizontal = ${
+    `PartI\nDepth = ${main.depth}\nHorizontal = ${
       main.horizontalPos
     }\n 1st response = ${main.depth * main.horizontalPos}`
+  );
+  const main2: PartII = new PartII();
+  main2.compute('../inputs/day2Input');
+  console.log(
+    `PartII\nDepth = ${main2.depth}\nHorizontal = ${
+      main2.horizontalPos
+    }\nAim = ${main2.aim}\n 2st response = ${main2.depth * main2.horizontalPos}`
   );
 }
