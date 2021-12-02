@@ -60,19 +60,11 @@ export class PartII extends PartI {
   }
 }
 
-export function main() {
+export default function main() {
   const main: PartI = new PartI();
   main.compute('../inputs/day2Input');
-  console.log(
-    `PartI\nDepth = ${main.depth}\nHorizontal = ${
-      main.horizontalPos
-    }\n 1st response = ${main.depth * main.horizontalPos}`
-  );
+  console.log(`Day2 - I = ${main.depth * main.horizontalPos}`);
   const main2: PartII = new PartII();
   main2.compute('../inputs/day2Input');
-  console.log(
-    `PartII\nDepth = ${main2.depth}\nHorizontal = ${
-      main2.horizontalPos
-    }\nAim = ${main2.aim}\n 2st response = ${main2.depth * main2.horizontalPos}`
-  );
+  console.log(`Day2 - II = ${main2.depth * main2.horizontalPos}`);
 }

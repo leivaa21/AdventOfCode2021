@@ -29,11 +29,13 @@ export function getMeasures(array: Array<number>): Array<number> {
   }
   return response;
 }
+export default function day1() {
+  const input: Array<number> = readAllInput('../inputs/day1Input');
+  const meassures: Array<number> = getMeasures(input);
 
-const input: Array<number> = readAllInput('../inputs/day1Input');
-const meassures: Array<number> = getMeasures(input);
-const number: number = howMuchAreGreater(meassures);
-
-console.log(
-  `Day1 - I response ${howMuchAreGreater(input)}\nDay1 - II response ${number}`
-);
+  console.log(
+    `Day1 - I = ${howMuchAreGreater(input)}\nDay1 - II = ${howMuchAreGreater(
+      meassures
+    )}`
+  );
+}

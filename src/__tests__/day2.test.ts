@@ -3,9 +3,10 @@ import { PartI, PartII } from '../day2';
 test('FormatCMD works', () => {
   const ej: PartI = new PartI();
   const response = ej.formatCmd('down 2');
-  const order = 'down';
-  const value = 2;
-  const expected: { order: string; value: number } = { order, value };
+  const expected: { order: string; value: number } = {
+    order: 'down',
+    value: 2,
+  };
   expect(response).toStrictEqual(expected);
 });
 
@@ -35,14 +36,14 @@ test('Part II HandleCommand works', () => {
   const cmd3 = { order: 'forward', value: 10 };
   ej2.handleCommand(cmd1);
   expect(ej2.depth).toBe(0);
-  expect(ej2.aim).toBe(cmd1.value);
+  expect(ej2.aim).toBe(2);
   ej2.handleCommand(cmd2);
-  expect(ej2.aim).toBe(cmd1.value - cmd2.value);
+  expect(ej2.aim).toBe(2 - 8);
   expect(ej2.depth).toBe(0);
   ej2.handleCommand(cmd3);
-  expect(ej2.horizontalPos).toBe(cmd3.value);
-  expect(ej2.depth).toBe(-60);
+  expect(ej2.horizontalPos).toBe(10);
+  expect(ej2.depth).toBe(10 * (2 - 8));
   ej2.handleCommand(cmd3);
-  expect(ej2.horizontalPos).toBe(20);
-  expect(ej2.depth).toBe(-120);
+  expect(ej2.horizontalPos).toBe(10 + 10);
+  expect(ej2.depth).toBe(10 * (2 - 8) * 2);
 });
