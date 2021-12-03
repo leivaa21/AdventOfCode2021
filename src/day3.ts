@@ -36,10 +36,7 @@ export function splitNumber(number: string): Array<number> {
   return digits;
 }
 
-export function sortInArrays(
-  splitedNumber: Array<number>,
-  array: Array<Array<number>>
-): Array<Array<number>> {
+export function sortInArrays(splitedNumber: Array<number>, array: Array<Array<number>>): Array<Array<number>> {
   for (let it = 0; it < splitedNumber.length; it++) {
     array[it].push(splitedNumber[it]);
   }
@@ -100,19 +97,109 @@ export function parseFromBinaryToDecimal(binary: string): number {
   return decimal;
 }
 
+// Second Response now
+
+export function leastCommon(array: Array<number>): number {
+  let zeroCount = 0;
+  let oneCount = 0;
+
+  array.forEach((digit) => {
+    digit == 0 ? zeroCount++ : oneCount++;
+  });
+  return oneCount < zeroCount ? 1 : 0;
+}
+
+interface filter {
+  bitCriteria: number;
+  bitPos: number;
+}
+
+export function getOxygenGenRating(input: Array<string>): number {
+  let SplittedArray: Array<Array<number>> = arraySplitter(input);
+
+  for (let it = 0; it < SplittedArray.length && SplittedArray[0].length > 1; it++) {
+    const filter: filter = getOxFilter(SplittedArray[it], it);
+    SplittedArray = applyFilter(SplittedArray, filter);
+  }
+
+  const oxValSplited: Array<number> = new Array<number>();
+  for (let it = 0; it < SplittedArray.length; it++) {
+    oxValSplited.push(SplittedArray[it][0]);
+  }
+
+  return parseFromBinaryToDecimal(`${uniteNumber(oxValSplited)}`);
+}
+
+export function getOxFilter(array: Array<number>, pos: number): filter {
+  return { bitCriteria: mostCommon(array), bitPos: pos };
+}
+
+export function getCOScrubberRating(input: Array<string>): number {
+  let SplittedArray: Array<Array<number>> = arraySplitter(input);
+
+  for (let it = 0; it < SplittedArray.length && SplittedArray[0].length > 1; it++) {
+    const filter: filter = getCOFilter(SplittedArray[it], it);
+    SplittedArray = applyFilter(SplittedArray, filter);
+  }
+
+  const oxValSplited: Array<number> = new Array<number>();
+  for (let it = 0; it < SplittedArray.length; it++) {
+    oxValSplited.push(SplittedArray[it][0]);
+  }
+
+  return parseFromBinaryToDecimal(`${uniteNumber(oxValSplited)}`);
+}
+
+export function getCOFilter(array: Array<number>, pos: number): filter {
+  return { bitCriteria: leastCommon(array), bitPos: pos };
+}
+
+/**
+ * I literrally hate this function, but it works
+ */
+
+export function applyFilter(array: Array<Array<number>>, filter: filter): Array<Array<number>> {
+  let finished = false;
+  while (finished != true) {
+    let modified = false;
+    for (let it = 0; it < array[filter.bitPos].length; it++) {
+      if (array[filter.bitPos][it] != filter.bitCriteria) {
+        modified = true;
+        array = removeNumber(array, it);
+      }
+    }
+    if (!modified) finished = true;
+  }
+
+  return array;
+}
+
+export function removeNumber(array: Array<Array<number>>, numberPos: number): Array<Array<number>> {
+  for (let it = 0; it < array.length; it++) {
+    array[it].splice(numberPos, 1);
+  }
+
+  return array;
+}
+
+// Main
+
 export default function day3() {
   const input: Array<string> = readAllInput('../inputs/day3Input');
   const gRateBinary: number = getGRateBinary(input);
   const eRateBinary: number = reverseBinary(`${gRateBinary}`);
-  const frstresponse: number =
-    parseFromBinaryToDecimal(`${gRateBinary}`) *
-    parseFromBinaryToDecimal(`${eRateBinary}`);
+  const frstresponse: number = parseFromBinaryToDecimal(`${gRateBinary}`) * parseFromBinaryToDecimal(`${eRateBinary}`);
   `${gRateBinary}`;
   console.log(
     `gRateBinary = ${gRateBinary}\neRateBinary = ${eRateBinary}\ngRate = ${parseFromBinaryToDecimal(
       `${gRateBinary}`
-    )}\neRate = ${parseFromBinaryToDecimal(
-      `${eRateBinary}`
-    )}\n1st response = ${frstresponse}`
+    )}\neRate = ${parseFromBinaryToDecimal(`${eRateBinary}`)}\nDay3 - I = ${frstresponse}`
   );
+
+  const OxGen: number = getOxygenGenRating(input);
+  const COScrub: number = getCOScrubberRating(input);
+
+  console.log(`OxGenRate = ${OxGen}`);
+  console.log(`OxGenRate = ${COScrub}`);
+  console.log(`Day3 - II = ${OxGen * COScrub}`);
 }
