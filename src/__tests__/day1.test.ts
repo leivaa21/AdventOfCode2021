@@ -1,9 +1,4 @@
-import {
-  getMeasures,
-  howMuchAreGreater,
-  isGreater,
-  readAllInput,
-} from '../day1';
+import { getMeasures, howMuchAreGreater, isGreater, readAllInput } from '../day1';
 
 test('Unit Test Greater Function', () => {
   expect(isGreater(1, 2)).toBe(false);

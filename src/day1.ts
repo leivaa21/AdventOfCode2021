@@ -33,9 +33,5 @@ export default function day1() {
   const input: Array<number> = readAllInput('../inputs/day1Input');
   const meassures: Array<number> = getMeasures(input);
 
-  console.log(
-    `Day1 - I = ${howMuchAreGreater(input)}\nDay1 - II = ${howMuchAreGreater(
-      meassures
-    )}`
-  );
+  console.log(`Day1 - I = ${howMuchAreGreater(input)}\nDay1 - II = ${howMuchAreGreater(meassures)}`);
 }
