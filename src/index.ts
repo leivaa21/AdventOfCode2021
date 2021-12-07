@@ -12,10 +12,11 @@ DisplayResolution(day4);
 import day5 from './day5';
 DisplayResolution(day5);
 
-import day6 from './day6-bruteApproach';
+import day6 from './day6-cleaner';
 DisplayResolution(day6);
-import day6_2 from './day6-cleaner';
-DisplayResolution(day6_2);
+
+import day7 from './day7';
+DisplayResolution(day7);
 
 function DisplayResolution(day: () => void) {
   console.log('\n=================');
