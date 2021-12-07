@@ -38,24 +38,18 @@ export class crabArmy {
     });
   }
 
-  public sortCrabs() {
-    this.crabPositions.sort((a, b) => {
-      return a - b;
-    });
-  }
-
   public getBestWayWithLinearFuel(): Result {
     cache = new Map<number, Map<number, number>>();
-    this.sortCrabs();
     this.calcAllPosibilitiesWithLinearFuel();
     this.storeResults();
     return this.getLowerResult();
   }
 
   private calcAllPosibilitiesWithLinearFuel() {
-    this.crabPositions.forEach((target) => {
-      this.calcPosibilityWithLinearFuel(target);
-    });
+    const furtherCrab = this.getFutherCrab();
+    for (let pos = 0; pos < furtherCrab + 1; pos++) {
+      this.calcPosibilityWithLinearFuel(pos);
+    }
   }
 
   private calcPosibilityWithLinearFuel(target: number) {
@@ -95,16 +89,16 @@ export class crabArmy {
   // Part two
   public getBestWay(): Result {
     cache = new Map<number, Map<number, number>>();
-    this.sortCrabs();
     this.calcAllPosibilities();
     this.storeResults();
     return this.getLowerResult();
   }
 
   private calcAllPosibilities() {
-    this.crabPositions.forEach((target) => {
-      this.calcPosibility(target);
-    });
+    const furtherCrab = this.getFutherCrab();
+    for (let pos = 0; pos < furtherCrab + 1; pos++) {
+      this.calcPosibility(pos);
+    }
   }
 
   private calcPosibility(target: number) {

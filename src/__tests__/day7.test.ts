@@ -1,4 +1,4 @@
-import { crabArmy } from '../day7';
+import { crabArmy, Result } from '../day7';
 
 test('loading good from input', () => {
   const example: crabArmy = new crabArmy('../inputs/mockedDay7');
@@ -21,5 +21,6 @@ test('fuel Consumition', () => {
 test('algorithm working good', () => {
   const example: crabArmy = new crabArmy('../inputs/mockedDay7');
   const response = example.getBestWay();
-  expect(response.fuel).toBe(168);
+  const expected: Result = new Result(5, 168);
+  expect(response).toStrictEqual(expected);
 });
