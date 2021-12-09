@@ -21,6 +21,9 @@ DisplayResolution(day7);
 import day8 from './day8';
 DisplayResolution(day8);
 
+import day9 from './day9';
+DisplayResolution(day9);
+
 function DisplayResolution(day: () => void) {
   console.log('\n=================');
   console.log('DISPLAYING RESPONSE');
